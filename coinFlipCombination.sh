@@ -81,28 +81,38 @@ do
 done
 
 #Store results in the dictionary
-declare -A result
-result[head]=$heads;
-result[tail]=$tails;
-result[HH]=$HH;
-result[HT]=$HT;
-result[TH]=$TH;
-result[TT]=$TT;
-result[HHH]=$HHH;
-result[HHT]=$HHT;
-result[HTH]=$HTH;
-result[THH]=$THH;
-result[THT]=$THT;
-result[TTT]=$TTT;
+declare -A singlet
+singlet[head]=$heads;
+singlet[tail]=$tails;
 
+declare -A doublet
+doublet[HH]=$HH;
+doublet[HT]=$HT;
+doublet[TH]=$TH;
+doublet[TT]=$TT;
+
+declare -A triplet
+triplet[HHH]=$HHH;
+triplet[HHT]=$HHT;
+triplet[HTH]=$HTH;
+triplet[THH]=$THH;
+triplet[THT]=$THT;
+triplet[TTT]=$TTT;
+
+#Dictionary sort to get winning combinations
+singletWin=$(printf '%s\n' "${singlet[@]}" | sort -n | tail -1 );
+doubletWin=$(printf '%s\n' "${doublet[@]}" | sort -n | tail -1 );
+tripletWin=$(printf '%s\n' "${triplet[@]}" | sort -n | tail -1 );
 
 echo "Percentage of occurence of heads is $heads %";
 echo "Percentage of occurence of tails is $tails %";
+echo "Singlet winner:" $singletWin;
 
 echo "Doublet occurence of HH is $HH %";
 echo "Doublet occurence of HT is $HT %";
 echo "Doublet occurence of TH is $TH %";
 echo "Doublet occurence of TT is $TT %";
+echo "Doublet combination winner:" $doubletWin;
 
 echo "Triplet occurence of HHH is $HHH %";
 echo "Triplet occurence of HHT is $HHT %";
@@ -110,3 +120,4 @@ echo "Triplet occurence of HTH is $HTH %";
 echo "Triplet occurence of THH is $THH %";
 echo "Triplet occurence of THT is $THT %";
 echo "Triplet occurence of TTT is $TTT %";
+echo "Triplet combination winner:" $tripletWin;
